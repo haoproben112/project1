@@ -1,0 +1,52 @@
+<%- include('main_html/header.html') %>
+<title>Giỏ hàng</title>
+<style>
+  .total{
+    text-align: right;
+    color: red;
+    
+  }
+  .m-items{
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .btn-delete-items{
+    margin-top: 15px;
+    margin-left: 10px;
+  }
+</style>
+<div class="mt-4">
+  <div class="container">
+    <h1>Giỏ hàng</h1>
+    <div class="row">
+      <% if (cartItems && cartItems.length > 0) { %>
+        <div class="cart-list-main">
+          <ul class="list-group">
+            <% cartItems.forEach((item) => { %>
+              <li class="list-group-item d-flex justify-content-between align-items-center m-items">
+                <%= item.name %> - <%= item.discountedPrice.toLocaleString() %>
+                <form method="POST" action="/cart/delete" class="d-flex justify-content-center">
+                  <input type="hidden" name="cartItemId" value="<%= item._id %>">
+                  <button type="submit" class="btn btn-danger btn-sm btn-delete-items">Xóa</button>
+                </form>
+              </li>
+            <% }); %>
+          </ul>
+         <div class="mt-4 mb-4">
+          <div class="total">
+            <b>Tổng tiền: <%= totalAmount.toLocaleString() %></b>
+            <form method="POST" action="/checkout">
+              <input type="hidden" name="totalAmount" value="<%= totalAmount %>">
+              <input type="submit" value="Thanh toán" style="margin-top: 5px; color: white; background-color: red; border: none; border-radius: 3px;">
+            </form>
+          </div>
+         </div>
+          <!-- Thêm mã HTML, form hoặc nút thanh toán khác -->
+        </div>
+      <% } else { %>
+        <p>Giỏ hàng trống!</p>
+      <% } %>
+    </div>
+  </div>
+</div>
+<%- include('main_html/footer.html') %>

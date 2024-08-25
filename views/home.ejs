@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<style>
+    .card-body-XCT .card-link-XCT {
+        margin: auto;
+        display: block;
+        text-align: center;
+        line-height: 55px;
+        text-decoration: none;
+        color: white;
+    }
+
+    .card-body-XCT .card-link-XCT:hover {
+        color: #ccc;
+    }
+
+    .card-body-XCT {
+        background: #343a40;
+        height: 60px;
+    }
+
+    .card {
+        margin-bottom: 10px;
+        border-radius: 8px;
+    }
+    .nav-item-sort{
+      list-style-type: none;
+       background: red;
+       margin-top: 10px;
+       width: 200px;
+       text-align: center;
+       margin-bottom: 10px;
+    }
+    .nav-link {
+      /* Tùy chỉnh kiểu chữ, màu và các thuộc tính khác của mục link */
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+    }
+    .nav-link:hover{
+      color: #ccc;
+    }
+    .search-form {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      margin: initial;
+      padding-left: 20px;
+      width: 35%;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+
+    .search-input {
+      flex-grow: 1;
+      margin-right: 10px;
+      width: 100%;
+    }
+    .nav-product-sort-search{
+      display: flex;
+    }
+    .p-search{
+        margin-top: 20px;
+    }
+</style>
+<%- include('main_html/header.html') %>
+    <div class="mt-4">
+        <div class="container">
+              <div class="nav-product-sort-search">
+                <!-- <li class="nav-item-sort">
+                  <a class="nav-link" href="/products?sort=name">Sắp xếp theo tên</a>
+                </li> -->
+                <div>
+                    <p class="p-search">Nhập tên để tìm kiếm</p>
+                </div>
+                <form action="/" method="GET" class="search-form">
+                    <!-- <input type="text" name="search" id="search" value="<%= searchKeyword %>">
+                   <button type="submit">Tìm</button> -->
+                   <input type="text" name="search" id="search" class="search-input form-control" value="<%= searchKeyword %>">
+                   <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                 </form>
+               </div>
+            <div class="row">
+                <% products.forEach(function(product) { %>
+                    <div class="card" style="width: 16rem; margin-right: 10px;">
+                        <img class="card-img-top" src="/img/<%= product.image %>" alt="<%= product.name %>">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= product.name %>
+                            </h5>
+                            <p class="card-text" style="text-decoration: line-through;">Giá gốc: <%=
+                                    product.originalPrice.toLocaleString() %>
+                            </p>
+                            <p class="card-text">Giá giảm:
+                                <%= product.discount.toLocaleString() %>
+                            </p>
+                            <p class="card-text" style="color: red;">Giá sau giảm: 
+                                <%= (product.originalPrice - product.discount).toLocaleString() %>
+                            </p>
+                         
+                            <p class="card-text">Nhà sản xuất:
+                                <%= product.category %>
+                            </p>
+                        </div>
+                        <div class="card-body-XCT">
+                            <a href="/product/<%= product._id %>" class="card-link-XCT" style="text-align: center;">xem
+                                chi tiết</a>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+    </div>
+    <%- include('main_html/footer.html') %>
+
+</html>

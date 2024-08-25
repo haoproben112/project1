@@ -1,0 +1,26 @@
+<%- include('main_html/header.html') %>
+
+<h1>thông tin sản phẩm vừa thêm</h1>
+<% if (cartItems.length === 0) { %>
+  <p>There are no items in the cart.</p>
+<% } else { %>
+  <ul>
+    <% cartItems.forEach((item) => { %>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <h3 class="mb-2"><%= item.name %></h3>
+          <p class="mb-1">Giá gốc: <%= item.originalPrice.toLocaleString() %></p>
+          <p class="mb-1">Giá giảm: <%= item.discount.toLocaleString() %></p>
+          <p class="mb-1">Giá đã giảm: <%= item.discountedPrice.toLocaleString() %></p>
+        </li>
+      </ul>
+    <% }) %>
+  </ul>
+<% } %>
+<% if (successMessage) { %>
+    <script>
+      // Hiển thị thông báo thành công bằng JavaScript
+      alert('<%= successMessage %>');
+    </script>
+  <% } %>
+<%- include('main_html/footer.html') %>

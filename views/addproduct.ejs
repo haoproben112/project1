@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Thêm sản phẩm</title>
+    <!-- Thêm CSS Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Thêm thư viện Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Tùy chỉnh CSS nếu cần */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Danh sách sản phẩm</h2>
+        <ul class="list-group">
+            <div class="mb-3">
+                <form action="/addproduct" method="GET">
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" placeholder="Tìm kiếm sản phẩm">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Tìm</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <% products.forEach(function(product) { %>
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>
+                            <%= product.name %> - <%= product.discountedPrice %>
+                        </span>
+                        <div>
+                            <!-- <form action="/products/<%= product._id %>?_method=PUT" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-sm btn-info mr-2"><i class="fas fa-edit"></i> Sửa</button>
+                      </form> -->
+                            <a href="/editproduct/<%= product._id %>">Sửa</a>
+                            <!-- <form action="/products/<%= product._id %>?_method=DELETE" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">
+                          <i class="fas fa-trash-alt"></i> Xóa
+                        </button> -->
+                            <form action="/deleteproduct/<%= product._id %>" method="POST"
+                                onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">
+                                <button type="submit">Xóa</button>
+                            </form>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+                <% }) %>
+        </ul>
+        <h1>Thêm sản phẩm</h1>
+
+        <div class="mb-4">
+            <form action="/addproduct" method="POST">
+                <!-- Trường name -->
+                <div class="form-group">
+                    <label for="name">Tên sản phẩm:</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Tên sản phẩm" required>
+                </div>
+                <!-- Trường originalPrice -->
+                <div class="form-group">
+                    <label for="originalPrice">Giá gốc:</label>
+                    <input type="number" id="originalPrice" name="originalPrice" class="form-control"
+                        placeholder="Giá gốc" required>
+                </div>
+
+                <!-- Trường discount -->
+                <div class="form-group">
+                    <label for="discount">Giảm giá:</label>
+                    <input type="number" id="discount" name="discount" class="form-control" placeholder="Giảm giá"
+                        required>
+                </div>
+
+                <!-- Trường discountedPrice -->
+                <!-- <div class="form-group">
+                    <label for="discountedPrice">Giá sau giảm:</label>
+                    <input type="number" id="discountedPrice" name="discountedPrice" class="form-control"
+                        placeholder="Giá sau giảm" required>
+                </div> -->
+                <input type="hidden" name="discountedPrice" value="originalPrice -discount">
+
+                <!-- Trường image -->
+                <div class="form-group">
+                    <label for="image">Ảnh:</label>
+                    <input type="file" id="image" name="image" class="form-control" placeholder="URL ảnh" required>
+                </div>
+
+                <!-- Trường category -->
+                <div class="form-group">
+                    <label for="category">Nhà sản xuất:</label>
+                    <input type="text" id="category" name="category" class="form-control" placeholder="Nhà sản xuất"
+                        required>
+                </div>
+
+                <!-- Trường capacity -->
+                <div class="form-group">
+                    <label for="capacity">Dung lượng:</label>
+                    <input type="text" id="capacity" name="capacity" class="form-control" placeholder="Dung lượng"
+                        required>
+                </div>
+
+                <!-- Trường weight -->
+                <div class="form-group">
+                    <label for="weight">Chiều rộng:</label>
+                    <input type="text" id="weight" name="weight" class="form-control" placeholder="Chiều rộng" required>
+                </div>
+
+                <!-- Trường high -->
+                <div class="form-group">
+                    <label for="high">Chiều cao:</label>
+                    <input type="text" id="high" name="high" class="form-control" placeholder="Chiều cao" required>
+                </div>
+
+                <!-- Trường system -->
+                <div class="form-group">
+                    <label for="system">Hệ điều hành:</label>
+                    <input type="text" id="system" name="system" class="form-control" placeholder="Hệ điều hành"
+                        required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Thêm script Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Xác nhận xóa sản phẩm
+        const deleteForms = document.querySelectorAll('form[action^="/products/"]');
+        deleteForms.forEach(form => {
+            form.addEventListener('submit', event => {
+                event.preventDefault();
+                const confirmation = confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');
+                if (confirmation) {
+                    form.submit();
+                }
+            });
+        });
+        //tìm kiếm sản phẩm bằng id
+        const productList = document.getElementById('productList');
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+
+        searchButton.addEventListener('click', function () {
+            performSearch();
+        });
+
+        searchInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const products = productList.getElementsByTagName('li');
+
+            Array.from(products).forEach(function (product) {
+                const productName = product.textContent.toLowerCase();
+
+                if (productName.includes(searchTerm)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

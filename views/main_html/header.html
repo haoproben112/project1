@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    .navbar {
+        background-color: #343a40 !important;
+
+    }
+
+    .navbar a {
+        color: aliceblue !important;
+    }
+</style>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Trang chủ</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <% if (loggedIn) { %>
+                    <!-- Hiển thị nội dung khi đã đăng nhập -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products"> <i class="fab fa-shopify"></i> Sản phẩm</a>
+                      </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/showcart"><i class="fas fa-shopping-cart"></i> Giỏ hàng</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/customer-info"><i class="fas fa-user"></i> Xem thông tin khách
+                            hàng</a>
+                    </li>
+
+                    <% } else { %>
+                        <!-- Hiển thị nội dung khi chưa đăng nhập -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register"><i class="fas fa-user-plus"></i> Đăng ký</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a>
+                        </li>
+
+                        <% } %>
+            </ul>
+        </div>
+    </nav>
+    <div class="sort-product">
+       
+    </div>
+</header>

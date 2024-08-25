@@ -1,0 +1,46 @@
+<%- include('main_html/header.html') %>
+    <style>
+        .row {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-sm-4">
+                <figure class="figure">
+                    <img src="/img/<%= product.image %>" class="figure-img img-fluid rounded"
+                        alt="A generic square placeholder image with rounded corners in a figure.">
+                </figure>
+            </div>
+            <div class="col-sm-8">
+                <div class="product-details">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-header">
+                            <%= product.name %>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Giá gốc: <%= product.originalPrice %>
+                            </li>
+                            <li class="list-group-item">Phần trăm giảm: <%= product.discount %>
+                            </li>
+                            <li class="list-group-item">Giá giảm: <%= product.discountedPrice %>
+                            </li>
+                            <li class="list-group-item">Nhà sản xuất: <%= product.category %>
+                            </li>
+                            <li class="list-group-item">Dung lượng: <%= product.Capacity %>
+                            </li>
+                            <li class="list-group-item">Chiều rộng: <%= product.Weight %>
+                            </li>
+                            <li class="list-group-item">Chiều dài: <%= product.High %>
+                            </li>
+                            <li class="list-group-item">Hệ điều hành: <%= product.system %>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('main_html/footer.html') %>
